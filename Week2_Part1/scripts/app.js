@@ -7,8 +7,7 @@
     function Start()
     {
         console.log("App Started!")
-
-
+        DisplayAboutPage()  // Calls function if 'About Us' button is pressed.
     }
     window.addEventListener("load", Start)
 }
@@ -16,10 +15,10 @@
 
 function DisplayHomePage()
 {
-    let AboutUsButton = document.getElementById("AboutUsButton");
-    AboutUsButton.addEventListener("click", function()
+    let AboutUsButton = document.getElementById("AboutUsButton");   // Reference to button on index page
+    AboutUsButton.addEventListener("click", function()           // Click event
     {
-        location.href = "index.html"
+        location.href = "index.html"    // Redirect to:
     });
 }
 

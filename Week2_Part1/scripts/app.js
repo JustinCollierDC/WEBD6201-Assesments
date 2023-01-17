@@ -1,3 +1,10 @@
+/*
+ Author: Justin Collier
+ Title: App Javascript
+ Date: 1/17/2023
+ Purpose: The main Javascript file for functions and events on the website.
+ */
+
 "user strict";
 
 //IIFE - Immediately Invoked Function Expression

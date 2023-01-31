@@ -62,26 +62,31 @@
         function DisplayContactPage()
         {
             let sendButton = document.getElementById("sendButton");
-            let subscribeCheckbox = document.getElementById("subscribeCheckbox")
-
-            sendButton.submit();
+            let subscribeCheckbox = document.getElementById("subscribeCheckbox");
 
             sendButton.addEventListener("click", function(event)
             {
                 if(subscribeCheckbox.checked)
                 {
-                    location.href = ("index.html");
                     console.log("Checkbox Checked!")
 
-                    // Instantiate Contact Object
-                    let contact = new Contact('#inputName'.value, '#inputNumber'.value, '#inputEmail'.value);
+                    // Variables that collect input fields via their tag id
+                    let inputName = document.getElementById("inputName");
+                    let inputNumber = document.getElementById("inputNumber");
+                    let inputEmail = document.getElementById("inputEmail");
+
+                    // Instantiating Contact Object
+                    let contact = new Contact(inputName.value, inputNumber.value, inputEmail.value);
                     if(contact.serialize())
                     {
+                        // Object was serialized successfully.
+                        console.log("Added user: " + inputName.value + " - " + inputNumber.value + " - " + inputEmail.value)
                         let key = contact.FullName.substring(0,1) + Date.now();
                         localStorage.setItem(key, contact.serialize())
                     }
                 }
             });
+
         }
 
         function DisplayContactListPage()

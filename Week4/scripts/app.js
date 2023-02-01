@@ -1,7 +1,7 @@
 /*
  Author: Justin Collier
  Title: App Javascript
- Date: 1/17/2023
+ Date Created: 1/17/2023
  Purpose: The main Javascript file for functions and events on the website.
  */
 
@@ -63,13 +63,13 @@
                     let inputEmail = document.getElementById("inputEmail");
 
                     // Instantiating Contact Object
-                    let contact = new Contact(inputName.value, inputNumber.value, inputEmail.value);
+                    let contact = new core.Contact(inputName.value, inputNumber.value, inputEmail.value);
                     if(contact.serialize())
                     {
                         // Object was serialized successfully.
-                        console.log("Added user: " + inputName.value + " - " + inputNumber.value + " - " + inputEmail.value)
+                        console.log("Added user: " + inputName.value + " - " + inputNumber.value + " - " + inputEmail.value);
                         let key = contact.FullName.substring(0,1) + Date.now();
-                        localStorage.setItem(key, contact.serialize())
+                        localStorage.setItem(key, contact.serialize());
                     }
                 }
             });
@@ -92,7 +92,7 @@
                 for(const key of keys)
                 {
                     let contactData = localStorage.getItem(key);
-                    let contact = new Contact();
+                    let contact = new core.Contact();
                     contact.deserialize(contactData);
                     data += `<tr><th scope="row" class="text-center">${index}</th>
                             <td>${contact.FullName}</td>
@@ -122,6 +122,25 @@
                         location.href = "edit.html#add";  // #add passes a parameter named 'add' to the URL
                     }
                 );
+
+                // Contact's Edit Button
+                $("button.edit").on("click", function()
+                    {
+                        location.href = "edit.html#" + $(this).val();
+                    }
+                )
+
+                // Contact's Delete Button
+                $("button.delete").on("click", function ()
+                    {
+                        // Confirm Delete
+                        if(confirm("Delete contact, are you sure?"))
+                        {
+                            localStorage.removeItem($(this).val())  // Remove using current object's key value
+                        }
+                        location.href = "contact-list.html";
+                    }
+                )
             }
         }
 
@@ -159,21 +178,44 @@
                             location.href = "contact-list.html";
                         }
                     )
-
-                    // Delete Button
-                    $("button.delete").on("click", function ()
-                        {
-                            // Confirm Delete
-                            if(confirm("Delete contact, are you sure?"))
-                            {
-                                localStorage.removeItem($(this).val())  // Remove using current object's key value
-                            }
-                            location.href = "contact-list.html";
-                        }
-                    )
                     break;
                 default:
                 {
+                    // Edit case
+
+                    // Get Contact info from localStorage
+                    let contact = new core.Contact();
+                    contact.deserialize(localStorage.getItem(page));
+
+                    // Display this contact's info in the edit form
+                    $("#inputName").val(contact.FullName);
+                    $("#inputNumber").val(contact.ContactNumber);
+                    $("#inputEmail").val(contact.EmailAddress);
+
+                    // When Edit Button is pressed, update the contact
+                    $("#editButton").on("click", (event) =>
+                        {
+                            event.preventDefault();
+
+                            // Get any changes on the form
+                            contact.FullName = $("inputName").val();
+                            contact.ContactNumber = $("inputNumber").val();
+                            contact.EmailAddress = $("inputEmail").val();
+
+                            // Replace the item in localStorage
+                            localStorage.setItem(page, contact.serialize());
+
+                            // Return to the contact-list page
+                            location.href = "contact-list.html";
+                        }
+                    )
+
+                    // Cancel button is clicked
+                    $("#cancelButton").on("click", () =>
+                        {
+                            location.href = "contact-list.html";
+                        }
+                    )
 
                 }
                 break;
@@ -189,7 +231,7 @@
          */
         function AddContact(fullName, contactNumber, emailAddress)
         {
-            let contact = new Contact(fullName, contactNumber, emailAddress);
+            let contact = new core.Contact(fullName, contactNumber, emailAddress);
 
             // Validation
             if(contact.serialize())

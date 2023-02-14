@@ -1,0 +1,97 @@
+<!--
+ Author: Justin Collier
+ Title: Contact Page
+ Date: 1/17/2023
+ Purpose: The contact page of my website.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+
+  <!-- CSS Section -->
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"> <!-- Bootstrap -->
+  <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css"> <!-- FontAwesome -->
+  <link rel="stylesheet" href="./content/app.css">
+
+</head>
+
+<body>
+
+<header>
+</header>
+
+<!-- Main -->
+<main class="container">
+  <h1> Welcome to Contact Us! </h1>
+
+  <!-- Error Message Area -->
+  <div id="messageArea" class="alert alert-danger"></div>
+
+  <!-- Contact Form -->
+  <div class="row justify-content-lg-left g-3">
+    <!-- CSS Styling -->
+    <form id="contactForm" class = "col-lg-6 col-md-10 col-sm-10">
+      <!-- Name Input -->
+      <div class="input-group mb-3">
+        <span class="input-group-text">Name</span>
+        <input id="inputName" name="inputName" type="text" class="form-control" aria-describedby="Full Name Input"
+               aria-label="Full Name" required>
+      </div>
+      <!-- Number Input -->
+      <div class="input-group mb-3">
+        <span class="input-group-text">Number</span>
+        <input id="inputNumber" name="inputNumber" type="tel" class="form-control" aria-describedby="Phone Number Input"
+               aria-label="Phone Number" required>
+      </div>
+      <!-- Email Input -->
+      <div class="input-group mb-3">
+        <span class="input-group-text">Email</span>
+        <input id="inputEmail" name="inputEmail" type="email" class="form-control" aria-describedby="Email Input"
+               aria-label="Email Address" required>
+      </div>
+
+      <!-- Message Field -->
+      <div class="input-group">
+        <span class="input-group-text">Your Message</span>
+        <textarea id="message" name="message" class="form-control" aria-label="Your Message"></textarea>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="mb-3 form-check">
+        <input id="subscribeCheckbox" name="subscribeCheckbox" type="checkbox" class="form-check-input">
+        <label class="form-check-label" for="subscribeCheckbox">Subscribe to our contact list</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button id="sendButton" type="submit" class="btn btn-primary">
+        <i class="fas fa-envelope"></i> Send</button>
+
+      <!-- Cancel Button -->
+      <button id="cancelButton" type="reset" class="btn bt-warning">
+        <i class="fas fa-undo fa-lg"></i> Cancel</button>
+    </form>
+  </div>
+
+  <!-- Contact List Button/Link -->
+  <div class="col-lg-4 col-md-4">
+    <br/>
+    <a href="contact-list.html" class="btn btn-primary btn-sm">
+      <i class="fas fa-users fa-lg"> Show Contact List </i>
+    </a>
+  </div>
+
+</main>
+
+
+<!-- Scripting Section -->
+<script src="./node_modules/jquery/dist/jquery.js"></script>                 <!-- JQuery (js) -->
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>    <!-- JQuery Bootstrap -->
+<script src="./scripts/app.js"></script>                                     <!-- App JavaScript -->
+<script src="./scripts/namespace.js"></script>                               <!-- Namespace Class (js) -->
+<script src="./scripts/contact.js"></script>                                 <!-- Contact Class (js) -->
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!--
+ Author: Justin Collier
+ Title: Register Page
+ Date: 2/14/2023
+ Purpose: The Register page of my website.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Register </title>
+
+  <!-- CSS Section -->
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"> <!-- Bootstrap -->
+  <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css"> <!-- FontAwesome -->
+  <link rel="stylesheet" href="./content/app.css">
+
+</head>
+
+<body>
+
+<header>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fa-solid fa-explosion"></i> WEBD6201</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+          <!-- Nav Item - Home -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html"> <i class="fa-solid fa-house"></i> Home</a>
+          </li>
+
+          <!-- Nav Item - Products -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="products.html"> <i class="fa-solid fa-cart-shopping"></i> Product</a>
+          </li>
+
+          <!-- Nav Item - Services -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="services.html"> <i class="fa-solid fa-handshake"></i> Service</a>
+          </li>
+
+          <!-- Nav Item - About Us -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="about.html"> <i class="fa-solid fa-address-card"></i> About Us</a>
+          </li>
+
+          <!-- Nav Item - Contact Us -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="contact.html"> <i class="fa-solid fa-envelope"></i> Contact Us</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main Content -->
+<main class="container" id="mainContent">
+  <div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+      <div class="login" id="contentArea">
+        <h1 class="display-4">Register</h1>
+        <form id="registerForm" novalidate>
+          <p class="hint-text">Create your own account. It's free and only takes a minute.</p>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="inputFirstName" id="inputFirstName" placeholder="First Name" required>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="inputLastName" id="inputLastName" placeholder="Last Name" required>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="email" class="form-control" id="inputEmail" name="inputEmail" required
+                       value="" placeholder="Email">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="password" class="form-control" id="inputPassword" name="inputPassword"  required
+                       value="" placeholder="Password">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"  required
+                       value="" placeholder="Confirm Password">
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="text-right">
+            <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Register</button>
+          </div>
+        </form>
+
+      </div>
+      <p class="text-center text-muted small">
+        Already have an account?
+        <a href="login.html">Sign in</a>
+      </p>
+    </div>
+  </div>
+</main>
+
+<!-- Scripting Section -->
+<script src="./node_modules/jquery/dist/jquery.js"></script>                 <!-- JQuery (js) -->
+<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>    <!-- JQuery Bootstrap -->
+<script src="./scripts/app.js"></script>                                     <!-- App JavaScript -->
+<script src="./scripts/namespace.js"></script>                               <!-- Namespace Class (js) -->
+<script src="./scripts/contact.js"></script>                                 <!-- Contact Class (js) -->
+
+</body>
+</html>

@@ -22,8 +22,6 @@
                 &nbsp;This is my article paragraph</p></article>`)
         }
 
-
-
         function DisplayAboutPage()
         {
             console.log("Welcome to the About Us Page.")
@@ -230,6 +228,58 @@
         function DisplayLoginPage()
         {
             console.log("Welcome to the Login Page.")
+
+            // Assigning ErrorMessage area via JQuery and hiding it.
+            let messageArea = $(`#messageArea`).hide();
+
+            // Login Button Click-event
+            $("#loginButton").on("click", (event) =>
+                {
+                    let successFlag = false;
+
+                    // Instantiate a User object
+                    let newUser = new core.User();
+
+                    // Variables that collect input fields via their tag id
+                    let username = document.getElementById("username");
+                    let password = document.getElementById("password");
+
+                    // AJAX call ('get') to our users.json data file.
+                    $.get("../data/users.json", function (data)
+                    {
+                        // Iterate through users in the file
+                        for(const user of data.users)
+                        {
+                            if(username.value === user.Username && password.value === user.Password)
+                            {
+                                // Form inputs match a stored user's credentials
+                                newUser.fromJSON(user);
+                                successFlag = true;
+                                break;
+                            }
+                        }
+
+                        // Login Validation Successful
+                        if(successFlag)
+                        {
+                            // Add user to storage session
+                            messageArea.removeAttr("class").hide();
+
+                            // **THIS PART HANGS THE APPLICATION**
+                            sessionStorage.SetItem("user", newUser.serialize());
+
+                            // Redirect user to secure area of the site.
+                            location.href = "contact-list.html";
+                        }
+                        else
+                        {
+                            // User credentials do not match any stored data
+                            $("username").trigger("focus").trigger("select");
+                            messageArea.addClass("alert alert-danger").text("ERROR: Invalid Login Credentials").show();
+                        }
+                    });
+                }
+            )
         }
 
         function DisplayRegisterPage()
@@ -244,6 +294,7 @@
          * @param {String} emailAddress
          * @constructor
          */
+        // Method to add a Contact to storage
         function AddContact(fullName, contactNumber, emailAddress)
         {
             let contact = new core.Contact(fullName, contactNumber, emailAddress);
@@ -252,6 +303,27 @@
             if(contact.serialize())
             {
                 let key = contact.FullName.substring(0,1) + Date.now();
+                localStorage.setItem(key, contact.serialize());
+            }
+        }
+
+        /**
+         *
+         * @param displayName
+         * @param emailAddress
+         * @param username
+         * @param password
+         * @constructor
+         */
+        // Method to add a User to storage
+        function AddUser(displayName, emailAddress, username, password)
+        {
+            let contact = new core.User(displayName, emailAddress, username, password);
+
+            // Validation
+            if(contact.serialize())
+            {
+                let key = contact.DisplayName.substring(0,1) + Date.now();
                 localStorage.setItem(key, contact.serialize());
             }
         }
@@ -315,6 +387,9 @@
             $("header").html(html_data);
             // Set the current page in the navbar to "active"
             $(`li>a:contains(${document.title})`).addClass("active");
+
+            // Check if a user is logged in (Login/Logout functionality)
+            CheckLogin()
         }
 
         function AjaxRequest(method, url, callback)
@@ -343,6 +418,24 @@
             xhr.open(method, url)
 
             xhr.send();
+        }
+
+        function CheckLogin()
+        {
+            // Check if a 'user' has been stored (logged in)
+            if(sessionStorage.getItem("user"))
+            {
+                // Change Login to Logout on navbar.
+                $("#login").html(`<a id="logout" class="nav-link" href="#"> <i class="fas fa-sign-out-alt"></i> Logout</a>`);
+            }
+
+            $("#logout").on("click", function()
+            {
+                // Perform logout
+                sessionStorage.clear();
+                // Redirect to login page
+                location.href = "login.html";
+            });
         }
 
         function Start()

@@ -45,8 +45,8 @@
             ContactFormValidation();
 
             // Assigning page attributes (Send Button, Subscribe Checkbox)
-            let sendButton = document.getElementById("sendButton");
-            let subscribeCheckbox = document.getElementById("subscribeCheckbox");
+            let sendButton = document.getElementById("sendButton") as HTMLElement;
+            let subscribeCheckbox = document.getElementById("subscribeCheckbox") as HTMLInputElement;
 
             sendButton.addEventListener("click", function(event)
             {
@@ -55,19 +55,19 @@
                     console.log("Checkbox Checked!")
 
                     // Grab variables that collect input fields via their tag id
-                    let inputName = document.getElementById("inputName");
-                    let inputNumber = document.getElementById("inputNumber");
-                    let inputEmail = document.getElementById("inputEmail");
+                    let inputName = document.getElementById("inputName") as HTMLInputElement;
+                    let inputNumber = document.getElementById("inputNumber") as HTMLInputElement;
+                    let inputEmail = document.getElementById("inputEmail") as HTMLInputElement;
 
                     // Instantiating Contact Object
-                    let contact = new core.Contact(inputName.value, inputNumber.value, inputEmail.value);
+                    let contact : core.Contact = new core.Contact(inputName.value, inputNumber.value, inputEmail.value);
 
                     if(contact.serialize())
                     {
                         // Object was serialized successfully.
                         console.log("Added user: " + inputName.value + " - " + inputNumber.value + " - " + inputEmail.value);
                         let key = contact.FullName.substring(0,1) + Date.now();
-                        localStorage.setItem(key, contact.serialize());
+                        localStorage.setItem(key, contact.serialize() as string);
                     }
                 }
             });
@@ -81,7 +81,7 @@
             // If any records exist
             if(localStorage.length > 0)
             {
-                let contactList = document.getElementById("contactList");
+                let contactList = document.getElementById("contactList") as HTMLElement;
                 let data = "";  // add deserialized data from localStorage
 
                 let keys = Object.keys(localStorage); // return a string array of keys.
@@ -89,7 +89,7 @@
                 let index = 1;
                 for(const key of keys)
                 {
-                    let contactData = localStorage.getItem(key);
+                    let contactData = localStorage.getItem(key) as string;
                     let contact = new core.Contact();
                     contact.deserialize(contactData);
                     data += `<tr><th scope="row" class="text-center">${index}</th>
@@ -134,7 +134,7 @@
                         // Confirm Delete
                         if(confirm("Delete contact, are you sure?"))
                         {
-                            localStorage.removeItem($(this).val())  // Remove using current object's key value
+                            localStorage.removeItem($(this).val() as string)  // Remove using current object's key value
                         }
                         location.href = "contact-list.html";
                     }
@@ -161,9 +161,9 @@
                     $("#editButton").on("click", (event) =>
                         {
                             // Variables that collect input fields via their tag id
-                            let inputName = document.getElementById("inputName");
-                            let inputNumber = document.getElementById("inputNumber");
-                            let inputEmail = document.getElementById("inputEmail");
+                            let inputName = document.getElementById("inputName") as HTMLInputElement;
+                            let inputNumber = document.getElementById("inputNumber") as HTMLInputElement;
+                            let inputEmail = document.getElementById("inputEmail") as HTMLInputElement;
 
                             event.preventDefault();
                             AddContact(inputName.value, inputNumber.value, inputEmail.value);
@@ -186,7 +186,7 @@
 
                     // Get Contact info from localStorage
                     let contact = new core.Contact();
-                    contact.deserialize(localStorage.getItem(page));
+                    contact.deserialize(localStorage.getItem(page) as string);
 
                     console.log(contact.FullName);
 
@@ -201,12 +201,12 @@
                             event.preventDefault();
 
                             // Get any changes on the form
-                            contact.FullName = $("inputName").val();
-                            contact.ContactNumber = $("inputNumber").val();
-                            contact.EmailAddress = $("inputEmail").val();
+                            contact.FullName = $("inputName").val() as string;
+                            contact.ContactNumber = $("inputNumber").val() as string;
+                            contact.EmailAddress = $("inputEmail").val() as string;
 
                             // Replace the item in localStorage
-                            localStorage.setItem(page, contact.serialize());
+                            localStorage.setItem(page, contact.serialize() as string);
 
                             // Return to the contact-list page
                             location.href = "contact-list.html";
@@ -241,8 +241,11 @@
                     let newUser = new core.User();
 
                     // Variables that collect input fields via their tag id
-                    let username = document.getElementById("username");
-                    let password = document.getElementById("password");
+                    let username = document.getElementById("username") as HTMLInputElement;
+                    let password = document.getElementById("password") as HTMLInputElement;
+                    // OR
+                    // let username = document.forms[0].username.value
+                    // let password = document.forms[0].password.value
 
                     // AJAX call ('get') to our users.json data file.
                     $.get("../data/users.json", function (data)
@@ -265,8 +268,9 @@
                             // Add user to storage session
                             messageArea.removeAttr("class").hide();
 
-                            // **THIS PART HANGS THE APPLICATION**
-                            sessionStorage.SetItem("user", newUser.serialize());
+                            console.log("preparing to store user in session...");
+                            sessionStorage.setItem("user", newUser.serialize() as string);
+                            console.log("user successfully stored in session.");
 
                             // Redirect user to secure area of the site.
                             location.href = "contact-list.html";
@@ -295,7 +299,7 @@
          * @constructor
          */
         // Method to add a Contact to storage
-        function AddContact(fullName, contactNumber, emailAddress)
+        function AddContact(fullName : string, contactNumber : string, emailAddress : string)
         {
             let contact = new core.Contact(fullName, contactNumber, emailAddress);
 
@@ -303,7 +307,7 @@
             if(contact.serialize())
             {
                 let key = contact.FullName.substring(0,1) + Date.now();
-                localStorage.setItem(key, contact.serialize());
+                localStorage.setItem(key, contact.serialize() as string);
             }
         }
 
@@ -316,7 +320,7 @@
          * @constructor
          */
         // Method to add a User to storage
-        function AddUser(displayName, emailAddress, username, password)
+        function AddUser(displayName : string, emailAddress : string, username :string, password :string)
         {
             let contact = new core.User(displayName, emailAddress, username, password);
 
@@ -324,7 +328,7 @@
             if(contact.serialize())
             {
                 let key = contact.DisplayName.substring(0,1) + Date.now();
-                localStorage.setItem(key, contact.serialize());
+                localStorage.setItem(key, contact.serialize() as string);
             }
         }
 
@@ -355,7 +359,7 @@
          * @param {String} error_message
          * @constructor
          */
-        function ValidateField(input_field_id, regular_expression, error_message)
+        function ValidateField(input_field_id : string, regular_expression : RegExp, error_message : string)
         {
             // Assigning ErrorMessage area via JQuery and hiding it.
             let messageArea = $(`#messageArea`).hide();
@@ -363,7 +367,8 @@
             // On loss of element focus
             $(input_field_id).on("blur", function()
                 {
-                    let inputFieldText = $(this).val();
+                    // Type cast as String for TypeScript formatting
+                    let inputFieldText = $(this).val() as string;
 
                     // Validating using the passed in regular expression pattern
                     if(!regular_expression.test(inputFieldText))
@@ -381,18 +386,7 @@
             )
         }
 
-        function LoadHeader(html_data)
-        {
-            // Inject the html code from html_data to the page header
-            $("header").html(html_data);
-            // Set the current page in the navbar to "active"
-            $(`li>a:contains(${document.title})`).addClass("active");
-
-            // Check if a user is logged in (Login/Logout functionality)
-            CheckLogin()
-        }
-
-        function AjaxRequest(method, url, callback)
+        function AjaxRequest(method : string, url : string, callback : Function)
         {
             // Step 1. Instantiate XHR object
             let xhr = new XMLHttpRequest();
@@ -426,10 +420,11 @@
             if(sessionStorage.getItem("user"))
             {
                 // Change Login to Logout on navbar.
-                $("#login").html(`<a id="logout" class="nav-link" href="#"> <i class="fas fa-sign-out-alt"></i> Logout</a>`);
+                $("#loginNav").html(`<a id="logoutNav" className="nav-link" aria-current="page" href="#">
+                    <i class="fas fa-sign-out-alt"></i> Logout</a>`);
             }
 
-            $("#logout").on("click", function()
+            $("#logoutNav").on("click", function()
             {
                 // Perform logout
                 sessionStorage.clear();
@@ -438,43 +433,92 @@
             });
         }
 
+        function Display404Page()
+        {
+            console.log("404 Page");
+        }
+
+        function ActiveLinkCallback() : Function
+        {
+            switch (router.ActiveLink)
+            {
+                case "home" : return DisplayHomePage;
+                case "about" : return DisplayAboutPage;
+                case "services" : return DisplayServicesPage;
+                case "products" : return DisplayProductsPage;
+                case "contact" : return DisplayContactPage;
+                case "contact-list" : return DisplayContactListPage;
+                case "edit" : return DisplayEditPage;
+                case "login" : return DisplayLoginPage;
+                case "register" : return DisplayRegisterPage;
+                case "404" : return Display404Page;
+                default:
+                    console.error("Error: callback does not exist " + router.ActiveLink);
+                    return new Function();
+                    break;
+            }
+        }
+
+        function LoadHeader()
+        {
+            $.get("/views/components/header.html", function(html_data)
+            {
+
+                // Inject the html code from html_data to the page header
+                $("header").html(html_data);
+
+                document.title = capitalizeFirstLetter(router.ActiveLink);
+
+                // Set the current page in the navbar to "active"
+                $(`li>a:contains(${document.title})`).addClass("active")
+
+                // Check if a user is logged in (Login/Logout functionality)
+                CheckLogin();
+
+            });
+        }
+
+        function LoadFooter()
+        {
+            $.get("/views/components/footer.html", function(html_data)
+            {
+                // Inject the html code from html_data to the pa
+                // get footer
+                $("footer").html(html_data);
+
+            });
+        }
+
+        function LoadContent()
+        {
+            let page_name = router.ActiveLink;
+            let callback = ActiveLinkCallback();
+
+            $.get(`./views/content/${page_name}.html`, function(html_data)
+            {
+                $("main").html(html_data);
+                callback();
+            });
+
+        }
+
+        function capitalizeFirstLetter(inputText : string) : string
+        {
+            return inputText.charAt(0).toUpperCase() + inputText.slice(1).toLowerCase();
+        }
+
         function Start()
         {
             console.log("App Started!")
 
-            // Loading header html code via AJAX
-            AjaxRequest("GET", "header.html", LoadHeader);
+            LoadHeader();
 
-            switch(document.title)
-            {
-                case "Home":
-                    DisplayHomePage();
-                    break;
-                case "About":
-                    DisplayAboutPage();
-                    break;
-                case "Products":
-                    DisplayProductsPage();
-                    break;
-                case "Services":
-                    DisplayServicesPage();
-                    break;
-                case "Contact":
-                    DisplayContactPage();
-                    break;
-                case "Contact List":
-                    DisplayContactListPage();
-                    break;
-                case "Edit Contact":
-                    DisplayEditPage();
-                    break;
-                case "Login":
-                    DisplayLoginPage();
-                    break;
-                case "Register":
-                    DisplayRegisterPage();
-                    break;
-            }
+            LoadContent();
+
+            LoadFooter();
+
+            // Loading header html code via AJAX
+            //AjaxRequest("GET", "./view/components/header.html", LoadHeader);
         }
         window.addEventListener("load", Start)
     }

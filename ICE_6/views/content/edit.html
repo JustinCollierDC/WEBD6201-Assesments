@@ -1,0 +1,47 @@
+<!--
+ Author: Justin Collier
+ Title: Edit Page
+ Date: 1/31/2023
+ Purpose: The edit contact page of my website.
+-->
+
+<!-- Main -->
+<main class="container">
+    <h1> Edit Contact </h1>
+
+    <!-- Error Message Area -->
+    <div id="messageArea" class="alert alert-danger"></div>
+
+    <!-- Contact Form -->
+    <div class="row justify-content-lg-left g-3">
+        <!-- CSS Styling -->
+        <form id="contactForm" class = "col-lg-6 col-md-10 col-sm-10">
+            <!-- Name Input -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Name</span>
+                <input id="inputName" name="inputName" type="text" class="form-control" aria-describedby="Full Name Input"
+                       aria-label="Full Name" required>
+            </div>
+            <!-- Number Input -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Number</span>
+                <input id="inputNumber" name="inputNumber" type="tel" class="form-control" aria-describedby="Phone Number Input"
+                       aria-label="Phone Number" required>
+            </div>
+            <!-- Email Input -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input id="inputEmail" name="inputEmail" type="email" class="form-control" aria-describedby="Email Input"
+                       aria-label="Email Address" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="editButton" type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-pen-nib"></i> Edit</button>
+
+            <!-- Cancel Button -->
+            <button id="cancelButton" type="reset" class="btn bt-warning">
+                <i class="fas fa-undo fa-lg"></i> Cancel</button>
+        </form>
+    </div>
+</main>

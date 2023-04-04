@@ -1,0 +1,72 @@
+<!--
+ Author: Justin Collier
+ Title: Register Page
+ Date: 2/14/2023
+ Purpose: The Register page of my website.
+-->
+
+<!-- Main Content -->
+<main class="container" id="mainContent">
+  <div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+      <div class="login" id="contentArea">
+        <h1 class="display-4">Register</h1>
+        <form id="registerForm" novalidate>
+          <p class="hint-text">Create your own account. It's free and only takes a minute.</p>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="inputFirstName" id="inputFirstName" placeholder="First Name" required>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="inputLastName" id="inputLastName" placeholder="Last Name" required>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="email" class="form-control" id="inputEmail" name="inputEmail" required
+                       value="" placeholder="Email">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="password" class="form-control" id="inputPassword" name="inputPassword"  required
+                       value="" placeholder="Password">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"  required
+                       value="" placeholder="Confirm Password">
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="text-right">
+            <button id="submitButton" type="submit" class="btn btn-primary btn-lg">Register</button>
+          </div>
+        </form>
+
+      </div>
+      <p class="text-center text-muted small">
+        Already have an account?
+        <a data="login.html" class="link">Sign in</a>
+      </p>
+    </div>
+  </div>
+</main>
